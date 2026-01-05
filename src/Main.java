@@ -1,27 +1,50 @@
 public class Main {
     public static void main(String[] args) {
 
-        Point point1 = new Point(1, 3);
-        Point point2 = new Point(5, 8);
-        Point point3 = new Point(10, 11);
-        Point point4 = new Point(15, 19);
+        Point p1 = new Point(1, 5);
+        Point p2 = new Point(2, 8);
+        Point p3 = new Point(5, 3);
+        Point p4 = new Point(8, 9);
 
-        Line line1 = new Line(point1, point2);
-        Line line2 = new Line(10, 11, 15, 19);
-        Line line3 = new Line(line1.end, line2.start);
+        BrokenLine brokenLine = new BrokenLine(p1, p2, p3, p4);
+        System.out.println("1. Создана ломаная: " + brokenLine);
 
-        System.out.println("Линия 3 до изменений: " + line3);
+        double brokenLineLength = brokenLine.getLength();
+        System.out.println("2. Длина ломаной: " + brokenLineLength);
 
-        line1.end.x = 20;
-        line1.end.y = 25;
+        Line[] lines = brokenLine.getLines();
+        System.out.println("3. Получен массив линий:");
+        for (int i = 0; i < lines.length; i++) {
+            System.out.println("   Линия " + (i + 1) + ": " + lines[i] +
+                    ", длина: " + lines[i].getLength());
+        }
 
-        line2.start.x = 30;
-        line2.start.y = 35;
+        double linesLength = 0.0;
+        for (int i = 0; i < lines.length; i++) {
+            linesLength += lines[i].getLength();
+        }
+        System.out.println("4. Суммарная длина массива линий: " + linesLength);
 
-        System.out.println("Линия 3 после изменений: " + line3);
+        System.out.println("5. Сравнение длин:");
+        System.out.println("   Длина ломаной: " + brokenLineLength);
+        System.out.println("   Длина массива линий: " + linesLength);
+        System.out.println("   Совпадают? " + (Math.abs(brokenLineLength - linesLength) < 0.0001));
 
-        double totalLength = line1.getLength() + line2.getLength() + line3.getLength();
-        System.out.println("Суммарная длина всех линий: " + totalLength);
+        Point pointToChange = brokenLine.getPoint(1);
+        System.out.println("   До изменения: " + pointToChange);
+
+        pointToChange.x = 12;
+        pointToChange.y = 8;
+
+        System.out.println("   После изменения: " + pointToChange);
+        System.out.println("   Ломаная после изменения: " + brokenLine);
+
+        System.out.println("   Проверка изменений:");
+        System.out.println("   - В ломаной: " + brokenLine.getPoint(1));
+
+        Line[] updatedLines = brokenLine.getLines();
+        System.out.println("   - В первой линии массива (начало): " + updatedLines[0].start);
+        System.out.println("   - Во второй линии массива (конец): " + updatedLines[1].end);
 
     }
 }
