@@ -14,12 +14,9 @@ class Parrot extends Bird {
         this.text = text;
     }
 
-    @Override  // Важно: должна быть такая же видимость как в родителе (public)
+    @Override
     public void sing() {
-        // N определяется случайно: не менее 1 и не более всех символов текста
         int n = random.nextInt(text.length()) + 1;
-
-        // Выводим первые N символов
         System.out.println(text.substring(0, n));
     }}
 
